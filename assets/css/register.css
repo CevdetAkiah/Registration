@@ -1,0 +1,35 @@
+body{
+    background-color: black;
+    
+}
+
+div{
+color:deepskyblue;
+margin-left: 1100px;
+}
+
+form{
+    box-sizing: border-box;
+    flex-direction: column;
+}
+#nameinput{
+    display:block;
+    margin-bottom: 30px;
+}
+
+#pwinput{
+    display: block;
+    margin-bottom: 20px;
+}
+
+#button{
+    color: deepskyblue;
+    border-color: black;
+    background-color: rgb(92, 30, 30);
+    box-shadow: black;
+}
+
+
+img{
+    box-shadow: rgb(0, 0, 0);
+}
