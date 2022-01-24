@@ -18,6 +18,8 @@ var (
 
 func main() {
 
+	app.InProduction = false //Will use this when encrypting cookies for the session. Set to false when in dev mode.
+
 	//Create the template cache.
 	tc, err := render.CreateTemplateCache()
 	if err != nil {
@@ -35,11 +37,12 @@ func main() {
 	http.HandleFunc("/", handlers.Repo.Index)
 	http.HandleFunc("/about", handlers.Repo.About)
 
-	// srv := &http.Server{
-	// 	Addr:    portNumber,
-	// 	Handler: routes(&app),
-	// }
+	//Sets the port to listen on and provides the routing for the handlers.
+	srv := &http.Server{
+		Addr:    portNumber,
+		Handler: routes(&app),
+	}
 
 	//Listens on port :8080 for any requests and handles the error.
-	log.Fatal(http.ListenAndServe(portNumber, nil))
+	log.Fatal(srv.ListenAndServe())
 }
