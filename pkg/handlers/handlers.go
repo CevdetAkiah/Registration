@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/CevdetAkiah/Registration/pkg/config"
+	"github.com/CevdetAkiah/Registration/pkg/models"
 	"github.com/CevdetAkiah/Registration/pkg/render"
 )
 
@@ -25,10 +26,20 @@ func NewHandlers(r *Repository) {
 
 //Executes the index html page
 func (m *Repository) Index(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, "index.page.gohtml")
+
+	render.RenderTemplate(w, "index.page.gohtml", nil)
+
 }
 
 //Executes the register gohtml page
 func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, "about.page.gohtml")
+
+	//test
+	stringMap := make(map[string]string)
+	stringMap["test"] = "Hello, again"
+
+	render.RenderTemplate(w, "about.page.gohtml", &models.TemplateData{
+		StringMap: stringMap,
+	})
+
 }

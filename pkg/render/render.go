@@ -1,7 +1,6 @@
 package render
 
 import (
-	"bytes"
 	"fmt"
 	"html/template"
 	"log"
@@ -9,6 +8,7 @@ import (
 	"path/filepath"
 
 	"github.com/CevdetAkiah/Registration/pkg/config"
+	"github.com/CevdetAkiah/Registration/pkg/models"
 )
 
 var (
@@ -20,7 +20,11 @@ func NewTemplates(a *config.AppConfig) {
 	app = a
 }
 
-func RenderTemplate(w http.ResponseWriter, tmpl string) {
+func AddDefaultData(td *models.TemplateData) *models.TemplateData {
+	return td
+}
+
+func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData) {
 
 	var tc = make(map[string]*template.Template)
 
@@ -38,15 +42,16 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) {
 	if !ok {
 		log.Fatal("Can't find template in the cache.")
 	}
+	td = AddDefaultData(td)
 
-	buf := new(bytes.Buffer)
+	// buf := new(bytes.Buffer)
+	fmt.Println(td)
+	t.Execute(w, td)
 
-	_ = t.Execute(buf, nil)
-
-	_, err := buf.WriteTo(w)
-	if err != nil {
-		log.Println("Error writing template to browser. ", err)
-	}
+	// _, err := buf.WriteTo(w)
+	// if err != nil {
+	// 	log.Println("Error writing template to browser. ", err)
+	// }
 
 }
 
@@ -59,7 +64,6 @@ func CreateTemplateCache() (map[string]*template.Template, error) {
 
 	for _, page := range pages {
 		name := filepath.Base(page)
-		fmt.Println(name)
 		ts, err := template.New(name).Funcs(functions).ParseFiles(page)
 		if err != nil {
 			return myCache, err
