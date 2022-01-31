@@ -51,4 +51,5 @@ func main() {
 
 	//Listens on port :8080 for any requests and handles the error.
 	log.Fatal(srv.ListenAndServe())
+	log.Println("Application is running on port: ", portNumber)
 }

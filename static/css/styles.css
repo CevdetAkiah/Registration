@@ -1,0 +1,55 @@
+
+.footer{
+    position:fixed;
+    left:0;
+    bottom:0;
+    width:100%;
+    background-color: #333;
+    color:white;
+    text-align:center;
+}
+
+nav{
+    position: fixed;
+    box-sizing: border-box;
+    width:100%;
+    float: left;
+    background-color:#333 ;
+    color: #f2f2f2;
+    text-align: center;
+    text-decoration: none;
+    font-size: 17px;
+    padding: 7px 16px;
+}
+
+nav a{
+    color: #f2f2f2;
+    text-decoration: none;
+    padding: 14px 16px;
+    height: 10em;
+} 
+
+a:is(:link, :active, :visited).active{
+    background-color: white;
+    color:white;
+    text-decoration: none;
+    padding:.5rem 1.5rem;
+    overflow:hidden;
+    color: black;
+} 
+
+/* .nav .a{
+    float: left;
+    background-color:#333 ;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.nav a:hover{
+    background-color:rgb(238, 24, 24);
+    color:black
+}
+ */

@@ -1,7 +1,6 @@
 package render
 
 import (
-	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -38,14 +37,13 @@ func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData)
 	}
 
 	t, ok := tc[tmpl]
-
 	if !ok {
 		log.Fatal("Can't find template in the cache.")
 	}
+
 	td = AddDefaultData(td)
 
 	// buf := new(bytes.Buffer)
-	fmt.Println(td)
 	t.Execute(w, td)
 
 	// _, err := buf.WriteTo(w)
@@ -57,7 +55,7 @@ func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData)
 
 func CreateTemplateCache() (map[string]*template.Template, error) {
 	myCache := make(map[string]*template.Template)
-	pages, err := filepath.Glob("../../templates/*.page.gohtml")
+	pages, err := filepath.Glob("../../templates/*.page.html")
 	if err != nil {
 		return myCache, err
 	}
@@ -68,13 +66,13 @@ func CreateTemplateCache() (map[string]*template.Template, error) {
 		if err != nil {
 			return myCache, err
 		}
-		matches, err := filepath.Glob("../../templates/*.layout.gohtml")
+		matches, err := filepath.Glob("../../templates/*.layout.html")
 		if err != nil {
 			return myCache, err
 		}
 
 		if len(matches) > 0 {
-			ts, err = ts.ParseGlob("../../templates/*.layout.gohtml")
+			ts, err = ts.ParseGlob("../../templates/*.layout.html")
 			if err != nil {
 				return myCache, err
 			}
