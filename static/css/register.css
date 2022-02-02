@@ -1,0 +1,35 @@
+hr{
+    width:50%;
+    margin-right:50em;
+}
+
+p{
+    position:relative;
+    padding-bottom: 1em;
+}
+
+#form{
+    margin-left: 50em;
+    padding-top: 5em;
+}
+
+.label{
+  position:relative;
+  display: block;
+}
+
+.input{
+    position:relative;
+    display: block;
+    margin-bottom:2em;
+    border: solid grey 2px;
+}
+
+.btn-register{
+    border: solid darkolivegreen 2px;
+    padding: 3px;
+}
+
+.btn-register:hover{
+    background-color: rgb(209, 42, 0);
+}

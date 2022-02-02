@@ -1,9 +1,11 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/CevdetAkiah/Registration/pkg/config"
+	"github.com/CevdetAkiah/Registration/pkg/models"
 	"github.com/CevdetAkiah/Registration/pkg/render"
 )
 
@@ -27,15 +29,23 @@ func NewHandlers(r *Repository) {
 
 //Index renders the index html page
 func (m *Repository) Index(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, "index.page.html", nil)
+	render.RenderTemplate(w, r, "index.page.html", &models.TemplateData{})
 }
 
 //About renders the about html page
 func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, "about.page.html", nil)
+	render.RenderTemplate(w, r, "about.page.html", &models.TemplateData{})
 }
 
 //Register renders the register html page
 func (m *Repository) Register(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, "register.page.html", nil)
+	render.RenderTemplate(w, r, "register.page.html", &models.TemplateData{})
+}
+
+//PostRegister renders the register html page
+func (m *Repository) PostRegister(w http.ResponseWriter, r *http.Request) {
+
+	email := r.Form.Get("email")
+	password := r.Form.Get("pwd")
+	fmt.Printf("Email is %s and password is %s", email, password)
 }

@@ -8,6 +8,7 @@ import (
 
 	"github.com/CevdetAkiah/Registration/pkg/config"
 	"github.com/CevdetAkiah/Registration/pkg/models"
+	"github.com/justinas/nosurf"
 )
 
 var (
@@ -19,11 +20,12 @@ func NewTemplates(a *config.AppConfig) {
 	app = a
 }
 
-func AddDefaultData(td *models.TemplateData) *models.TemplateData {
+func AddDefaultData(td *models.TemplateData, r *http.Request) *models.TemplateData {
+	td.CSRFToken = nosurf.Token(r) //Adding the CSRF token for the request.
 	return td
 }
 
-func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData) {
+func RenderTemplate(w http.ResponseWriter, r *http.Request, tmpl string, td *models.TemplateData) {
 
 	var tc = make(map[string]*template.Template)
 
@@ -41,7 +43,7 @@ func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData)
 		log.Fatal("Can't find template in the cache.")
 	}
 
-	td = AddDefaultData(td)
+	td = AddDefaultData(td,r)
 
 	// buf := new(bytes.Buffer)
 	t.Execute(w, td)

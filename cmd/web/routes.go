@@ -13,11 +13,12 @@ func routes(app *config.AppConfig) http.Handler {
 	mux := chi.NewRouter()
 
 	mux.Use(middleware.Recoverer)
-	mux.Use(NoSurf)
+	 mux.Use(NoSurf)
 
 	mux.Get("/index", handlers.Repo.Index)
 	mux.Get("/about", handlers.Repo.About)
 	mux.Get("/register", handlers.Repo.Register)
+	mux.Post("/register-post", handlers.Repo.PostRegister)
 
 	//fileServer serves all static files
 	fileServer := http.FileServer(http.Dir("../../static/"))

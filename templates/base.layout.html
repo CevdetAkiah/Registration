@@ -8,32 +8,39 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="../static/css/styles.css">
+    <link rel="stylesheet" href="../static/css/mcleod_reset.css">
+
+
     <title>Document</title>
 
 </head>
 
 <body>
-
-    {{block "content" .}}
     <nav>
         <a href="/index">Home</a>
         <a href="/about">About</a>
         <a href="/register">Register</a>
     </nav>
 
+    {{block "content" .}}
+
+    {{end}}
+
+
     <div class="footer">
         <p>Footer</p>
     </div>
 
-    {{end}}
 
 
     {{block "js" .}}
-    <!-- This script adds the "active" element to the currently selected button in the nav. -->
-    <script defer src="../static/jss/activePage.js"></script>
+
     {{end}}
 
 </body>
+
+<!-- This script adds the "active" element to the currently selected button in the nav. -->
+<script defer src="../static/jss/activePage.js"></script>
 
 </html>
 {{end}}

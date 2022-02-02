@@ -1,8 +1,30 @@
 {{template "base" .}}
 
+<link rel="stylesheet" href="../static/css/register.css">
 
 {{define "content"}}
 
+<form action="/register-post" method="post" id="form">
+    <input type="hidden" name="csrf_token" value="{{.CSRFToken}}" >
+    <p>Please fill in the form below to register an account
+    </p>
+    <hr>
+    <label class="label" for="email">Email</label>
+    <input type="email" id="email" name="email" required placeholder="Please enter your email" autofocus
+        autocomplete="off" class="input">
 
+
+    <label class="label" for="pwd"><strong>Password</strong></label>
+    <input type="password" id="pwd" name="pwd" required placeholder="Please enter your Password" autofocus
+        autocomplete="off" class="input">
+
+
+    <label class="label" for="pwd-chk"><strong>Repeat Password</strong></label>
+    <input type="password" id="pwd-repeat" name="pwd-repeat" required placeholder="Please repeat your password"
+        autofocus autocomplete="off" class="input">
+
+    <button type="submit" class="btn-register"><strong>Submit</strong></button>
+
+</form>
 
 {{end}}
