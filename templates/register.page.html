@@ -2,10 +2,12 @@
 
 <link rel="stylesheet" href="../static/css/register.css">
 
+<script defer src="../static/jss/validateRegistration.js"></script>
+
 {{define "content"}}
 
-<form action="/register-post" method="post" id="form">
-    <input type="hidden" name="csrf_token" value="{{.CSRFToken}}" >
+<form action="/register-post" method="post" id="form" name="formReg" onsubmit="return validateForm()">
+    <input type="hidden" name="csrf_token" value="{{.CSRFToken}}">
     <p>Please fill in the form below to register an account
     </p>
     <hr>
@@ -16,10 +18,10 @@
 
     <label class="label" for="pwd"><strong>Password</strong></label>
     <input type="password" id="pwd" name="pwd" required placeholder="Please enter your Password" autofocus
-        autocomplete="off" class="input">
+        autocomplete="off" class="input" minlength="5">
 
 
-    <label class="label" for="pwd-chk"><strong>Repeat Password</strong></label>
+    <label class="label" for="pwd-repeat"><strong>Repeat Password</strong></label>
     <input type="password" id="pwd-repeat" name="pwd-repeat" required placeholder="Please repeat your password"
         autofocus autocomplete="off" class="input">
 

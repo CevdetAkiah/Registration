@@ -25,11 +25,20 @@ p{
     border: solid grey 2px;
 }
 
+.input:invalid{
+   border-color:#900;
+   background-color:#FDD;
+}
+
+.input:focus:invalid{
+    outline:none;
+}
+
 .btn-register{
     border: solid darkolivegreen 2px;
     padding: 3px;
 }
 
 .btn-register:hover{
-    background-color: rgb(209, 42, 0);
+    background-color: rgb(97, 155, 209);
 }

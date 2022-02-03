@@ -20,7 +20,7 @@ var (
 
 func main() {
 
-	app.InProduction = false //Will use this when encrypting cookies for the session. Set to false when in dev mode.
+	app.InProduction = true //Will use this when encrypting cookies for the session. Set to false when in dev mode.
 
 	session := scs.New()                           //Sessions persist user data, eg is a user logged in?
 	session.Lifetime = 24 * time.Hour              //sets how long the session lasts for.
