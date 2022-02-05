@@ -22,13 +22,24 @@ p{
     position:relative;
     display: block;
     margin-bottom:2em;
+    border-radius:4%;
     border: solid grey 2px;
 }
 
-.input:invalid{
+.invalid{
    border-color:#900;
    background-color:#FDD;
 }
+
+.valid{
+    border-color:rgb(0, 153, 69);
+    background-color:rgb(221, 255, 221);
+}
+/* 
+.input:valid{
+    border-color:rgb(8, 214, 26);
+    background-color:rgb(221, 255, 232);
+} */
 
 .input:focus:invalid{
     outline:none;
@@ -37,8 +48,11 @@ p{
 .btn-register{
     border: solid darkolivegreen 2px;
     padding: 3px;
+    border-radius:4%;
 }
 
 .btn-register:hover{
     background-color: rgb(97, 155, 209);
 }
+
+
