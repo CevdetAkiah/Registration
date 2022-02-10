@@ -1,10 +1,11 @@
 package handlers
 
 import (
-	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/CevdetAkiah/Registration/pkg/config"
+	"github.com/CevdetAkiah/Registration/pkg/forms"
 	"github.com/CevdetAkiah/Registration/pkg/models"
 	"github.com/CevdetAkiah/Registration/pkg/render"
 )
@@ -44,8 +45,28 @@ func (m *Repository) Register(w http.ResponseWriter, r *http.Request) {
 
 //PostRegister renders the register html page
 func (m *Repository) PostRegister(w http.ResponseWriter, r *http.Request) {
+	err := r.ParseForm()
+	if err != nil {
+		log.Println(err)
+	}
 
-	email := r.Form.Get("email")
-	password := r.Form.Get("pwd")
-	fmt.Printf("Email is %s and password is %s", email, password)
+	reservation := models.Registration{
+		Email:    r.Form.Get("email"),
+		Password: r.Form.Get("pwd"),
+	}
+
+	form := forms.New(r.PostForm)
+
+	form.Has("email", r)
+	if !form.Valid() {
+		data := make(map[string]interface{})
+		data["reservation"] = reservation
+
+		render.RenderTemplate(w, r, "register.page.html", &models.TemplateData{
+			Form: form,
+			Data: data,
+		})
+
+		return
+	}
 }

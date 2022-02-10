@@ -7,7 +7,7 @@ function validateForm() {
         Swal.fire({
             icon: 'error',
             title: `Oops...`,
-            text: `Your password doesn't match.`,
+            text: `Your passwords don't match`,
         })
 
         return false;
@@ -17,24 +17,21 @@ function validateForm() {
 //validateInput changes css styles depending on if the input is valid.
 function validateInput(x) {
     let myEl = document.getElementById(x);
-    if (myEl.type == "email") {
-        if (!myEl.checkValidity()) {
-            myEl.classList.add("invalid");
-            myEl.classList.remove("valid");
-        } else {
-            myEl.classList.remove("invalid");
-            myEl.classList.add("valid");
-        }
+    if (!myEl.checkValidity()) {
+        myEl.classList.add("invalid");
+        myEl.classList.remove("valid");
     } else {
-        if (!myEl.checkValidity()) {
-            myEl.classList.add("invalid");
-            myEl.classList.remove("valid");
-        } else {
-            myEl.classList.remove("invalid");
-            myEl.classList.add("valid");
-        }
+        myEl.classList.remove("invalid");
+        myEl.classList.add("valid");
     }
 }
+
+// function validatePassword(x) {
+//     let myEl = document.getElementById(x);
+//     //check password min & max length
+//     //check uppercase letter
+//     //if password is pwd-repeat, check it matches password
+// }
 
 
 
