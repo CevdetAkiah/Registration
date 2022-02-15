@@ -1,6 +1,7 @@
 package models
 
-type Registration struct{
-	Email string
-	Password string
+type User struct{
+	UserName string
+	Password []byte
 }
+
