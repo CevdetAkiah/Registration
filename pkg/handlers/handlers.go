@@ -74,11 +74,8 @@ func (m *Repository) PostRegister(w http.ResponseWriter, r *http.Request) {
 		http.SetCookie(w, c)
 		dbSessions[c.Value] = un
 
-		fmt.Println("we get here")
-
 		//store the user in the database
 		bs, err := bcrypt.GenerateFromPassword([]byte(p), bcrypt.MinCost)
-		fmt.Println(bs)
 		if err != nil {
 			http.Error(w, "Internal server error", http.StatusInternalServerError)
 			return
@@ -89,4 +86,21 @@ func (m *Repository) PostRegister(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/index", http.StatusSeeOther)
 	}
 
+}
+
+func (m *Repository) LogOut(w http.ResponseWriter, r *http.Request) {
+	if alreadyLoggedIn(r) {
+		c, _ := r.Cookie("session")
+
+		//delete session
+		delete(dbSessions, c.Value)
+
+		//delete cookie
+		c.MaxAge = -1
+		http.SetCookie(w, c)
+
+		http.Redirect(w, r, "/index", http.StatusSeeOther)
+	} else {
+		http.Redirect(w, r, "/index", http.StatusSeeOther)
+	}
 }
