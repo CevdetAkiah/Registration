@@ -11,14 +11,9 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-type user struct {
-	UserName string
-	Password []byte
-}
-
 var Repo *Repository
-var dbUsers = make(map[string]user)      //user ID, user
-var dbSessions = make(map[string]string) // session ID, user ID
+var dbUsers = make(map[string]models.User) //user ID, user
+var dbSessions = make(map[string]string)   // session ID, user ID
 
 type Repository struct {
 	App *config.AppConfig
@@ -38,7 +33,9 @@ func NewHandlers(r *Repository) {
 
 //Index renders the index html page
 func (m *Repository) Index(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, r, "index.page.html", &models.TemplateData{})
+	u := getUser(w, r)
+	fmt.Println(u)
+	render.RenderTemplate(w, r, "index.page.html", &models.TemplateData{User: u})
 }
 
 //About renders the about html page
@@ -57,13 +54,13 @@ func (m *Repository) PostRegister(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/index", http.StatusSeeOther)
 		return
 	}
-	var u user
+	var u models.User
 
 	if r.Method == http.MethodPost {
 		un := r.FormValue("email")
 		p := r.FormValue("pwd")
 		//username taken?
-		if _, ok := m.App.DbUsers[un]; ok {
+		if _, ok := dbUsers[un]; ok {
 			http.Error(w, "Username already taken", http.StatusForbidden)
 			return
 		}
@@ -76,6 +73,7 @@ func (m *Repository) PostRegister(w http.ResponseWriter, r *http.Request) {
 		}
 		http.SetCookie(w, c)
 		dbSessions[c.Value] = un
+
 		fmt.Println("we get here")
 
 		//store the user in the database
@@ -85,7 +83,7 @@ func (m *Repository) PostRegister(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Internal server error", http.StatusInternalServerError)
 			return
 		}
-		u = user{UserName: un, Password: bs}
+		u = models.User{UserName: un, Password: bs}
 		dbUsers[un] = u
 
 		http.Redirect(w, r, "/index", http.StatusSeeOther)

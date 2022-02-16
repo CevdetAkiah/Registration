@@ -1,5 +1,13 @@
 {{template "base" .}}
 
 {{define "content"}}
+<br>
+<br>
+<br>
+{{if .User.UserName}}
+<script src="../static/jss/changeEleAttribute.js"></script>
+<h2>Welcome {{.User.UserName }}</h2>
+<br>
+{{ end }}
 
-{{end}}
+{{ end }}
