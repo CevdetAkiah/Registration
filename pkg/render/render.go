@@ -56,6 +56,7 @@ func RenderTemplate(w http.ResponseWriter, r *http.Request, tmpl string, td *mod
 
 }
 
+//CreateTemplateCache is used on application startup
 func CreateTemplateCache() (map[string]*template.Template, error) {
 	myCache := make(map[string]*template.Template)
 	pages, err := filepath.Glob("../../templates/*.page.html")
