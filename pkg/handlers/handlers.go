@@ -1,6 +1,9 @@
 package handlers
 
 import (
+	"fmt"
+	"io/ioutil"
+	"log"
 	"net/http"
 	"time"
 
@@ -113,4 +116,17 @@ func (m *Repository) LogOut(w http.ResponseWriter, r *http.Request) {
 	}
 
 	http.Redirect(w, r, "/login", http.StatusSeeOther)
+}
+
+//CheckUserName checks if the email address already exists on a new registration. Currently doesn't work as data is not persisted across functions.
+func (m *Repository) CheckUserName(w http.ResponseWriter, r *http.Request) {
+	bs, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		log.Println(err)
+	}
+
+	sbs := string(bs)
+	fmt.Println("USERNAME: ", sbs)
+
+	fmt.Fprint(w, dbUsers[sbs].UserName)
 }
